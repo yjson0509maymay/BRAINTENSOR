@@ -1,0 +1,8 @@
+PPMI T2 MRI 재현 모델링 작업 리스트
+[x] PyTorch (CUDA 지원) 라이브러리 설치
+[x] 모델링 작업 디렉터리 생성 및 설정 (d:\Brain_Tensor\모델링)
+[x] dataset.py 구현 (피험자 단위 stratified split, 3D 데이터 증강)
+[x] models.py 구현 (3D-CNN Variant 3, 15-layer 3D-ResNet)
+[/] train.py 구현 (모델 학습, 가중치 저장 및 특징 벡터 추출)
+[ ] fusion_optimization.py 구현 (CCA 특징 융합, Binary WOA 특징 선택, ML 분류기 학습 및 검증)
+[ ] 전체 파이프라인 검증 및 결과 보고서 작성

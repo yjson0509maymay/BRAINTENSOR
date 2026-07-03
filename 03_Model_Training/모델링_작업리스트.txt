@@ -1,0 +1,7 @@
+대신 실질적으로 도움이 될 만한 방향은 이런 게 있어요:
+
+개별 구성요소 코드는 있음 — 3D-CNN/3D-ResNet 자체는 (kenshohara/3D-ResNets-PyTorch, ZFTurbo/classification_models_3D 등) 표준 구현체가 많아서 이걸 베이스로 논문 스펙(레이어 수, ablation 결과)에 맞춰 커스터마이징하는 게 현실적입니다.
+전처리 파이프라인(skull stripping, bias correction, registration) — 논문이 인용한 FSL BET (Smith, 2002)을 그대로 쓰는 게 제일 안전합니다. FSL 자체가 오픈소스라 GitHub에 있고, PPMI 데이터에 흔히 쓰이는 조합입니다.
+혹시 PPMI + 3D-CNN/ResNet 파킨슨 분류 관련 다른 논문들의 코드는 찾아드릴까요? (완전히 동일한 파이프라인은 아니어도 전처리 스크립트 구조는 참고가 될 수 있어요)
+
+원하시면 FSL BET / bias correction 관련 실제 예제 코드나 저장소를 좀 더 구체적으로 찾아드릴게요.

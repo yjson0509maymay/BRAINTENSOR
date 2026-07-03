@@ -1,0 +1,12 @@
+﻿# Python 3.12.3
+#
+# External neuroimaging tools (install separately; not available from pip):
+# - FSL 6.0: BET brain extraction and FLIRT MNI152 registration
+# - ANTs 2.6.5: N4BiasFieldCorrection
+# - dcm2niix v1.0.20260416: fallback DICOM-to-NIfTI conversion
+
+dicom2nifti==2.6.2
+nibabel==5.4.2
+numpy==2.4.6
+pydicom==3.0.2
+scipy==1.17.1
