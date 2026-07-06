@@ -20,7 +20,7 @@ import torch
 import torch.nn as nn
 torch.set_num_threads(2)
 
-from dataset import _load_samples, PPMIT2Dataset, augment_volume_3d
+from dataset import _load_samples, PPMIT2Dataset
 from torch.utils.data import DataLoader
 from models import CNN3D, ResNet3D
 
@@ -83,10 +83,9 @@ def main():
     samples = _load_samples(args.csv_path)[:args.n_samples]
     log(f"[OK] 1_데이터로딩: {len(samples)}개 샘플: {[s['sample_id'] for s in samples]}")
 
-    ds = PPMIT2Dataset(samples, args.image_dir,
-                        transform=lambda x: augment_volume_3d(x, np.random.default_rng()))
+    ds = PPMIT2Dataset(samples, args.image_dir, transform=None)
     x0, y0, sid0 = ds[0]
-    log(f"[OK] 2_전처리(증강): shape={tuple(x0.shape)}, dtype={x0.dtype}, label={y0.item()}")
+    log(f"[OK] 2_전처리(증강 없음): shape={tuple(x0.shape)}, dtype={x0.dtype}, label={y0.item()}")
 
     loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False)
     batch_x, batch_y, batch_ids = next(iter(loader))

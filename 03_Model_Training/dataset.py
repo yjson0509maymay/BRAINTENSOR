@@ -5,7 +5,6 @@ dataset.py - PPMI T2 MRI 데이터셋 로더 및 논문 사양 평가 분할
 근거: 모델_아키텍처_분석.md Table 5(3D-CNN/3D-ResNet 학습: 70% Train, 15%+15% Test/Val,
 k-fold=5), Table 6(Model 3/4: 5-fold, 10-fold, 15-fold cross validation).
 
-이전 세션의 dataset.py(단일 70/15/15 hold-out만 지원)를 대체합니다.
 이 버전은 두 가지 분할 전략을 모두 제공합니다:
 
   1. get_holdout_split()  - 3D-CNN/3D-ResNet 자체 학습용 (Table 5 사양: 70% Train,
@@ -16,6 +15,17 @@ k-fold=5), Table 6(Model 3/4: 5-fold, 10-fold, 15-fold cross validation).
 
 모든 분할은 피험자(Subject) 단위로 수행되어 동일 피험자의 여러 스캔이 train/val/test
 사이에 걸쳐 누출(leakage)되지 않도록 합니다 (기존 프로젝트 원칙 유지).
+
+[Data Augmentation 관련 이력]
+- 2026-07-06(1차): augment_volume_3d()를 프로젝트 결정으로 제거함.
+- 2026-07-06(2차, 본 버전): Ablation Base(8-layer) 모델을 실제 303명 데이터로 학습한
+  결과 Train acc 99% vs Val/Test acc 37~53%의 극심한 과적합이 관측되어(train_loss도
+  epoch마다 불규칙하게 요동), 증강을 다시 도입함. 근거: 원 논문 본문도 "Data
+  augmentation was applied"(ref.21/22 인용, 구체 기법 미기재)라고 명시하고 있어
+  증강 자체는 논문 방법론과 일치하며, 특히 Prodromal 클래스(train 41개)처럼 표본이
+  적은 상황에서 증강 없이 3D-CNN을 학습하는 것은 비현실적이라고 판단함.
+  적용 파라미터(회전 ±8도, 50% flip, scale 0.95~1.05, shift ±0.05, gaussian noise
+  std 0.01)는 논문에 구체 수치가 없어 프로젝트 자체 결정 - DEVIATIONS.md 참조.
 """
 import os
 import csv
@@ -85,7 +95,8 @@ class PPMIT2Dataset(Dataset):
 
 
 def augment_volume_3d(data, rng=None, use_rotation=True):
-    """학습 세트에만 on-the-fly 적용. 논문에 구체 기법 미기재 - 프로젝트 자체 파라미터(DEVIATIONS.md 참조)"""
+    """학습(Train) 세트에만 on-the-fly 적용. 논문은 증강 사용을 명시(ref.21/22)하나
+    구체 기법은 미기재 - 파라미터는 프로젝트 자체 결정(DEVIATIONS.md 참조)."""
     if rng is None:
         rng = np.random.default_rng()
     aug = data.copy()
@@ -180,7 +191,7 @@ def get_kfold_splits(csv_path, k=5, seed=42):
         yield expand(train_subs), expand(test_subs)
 
 
-def get_dataloaders(csv_path, image_dir, batch_size=8, seed=42):
+def get_dataloaders(csv_path, image_dir, batch_size=8, seed=42, use_augmentation=True):
     train_samples, val_samples, test_samples = get_holdout_split(csv_path, seed=seed)
 
     exists = lambda s: os.path.exists(os.path.join(image_dir, f"{s['sample_id']}.nii.gz"))
@@ -188,8 +199,8 @@ def get_dataloaders(csv_path, image_dir, batch_size=8, seed=42):
     val_samples = [s for s in val_samples if exists(s)]
     test_samples = [s for s in test_samples if exists(s)]
 
-    train_ds = PPMIT2Dataset(train_samples, image_dir,
-                              transform=lambda x: augment_volume_3d(x, np.random.default_rng()))
+    train_transform = (lambda x: augment_volume_3d(x, np.random.default_rng())) if use_augmentation else None
+    train_ds = PPMIT2Dataset(train_samples, image_dir, transform=train_transform)
     val_ds = PPMIT2Dataset(val_samples, image_dir, transform=None)
     test_ds = PPMIT2Dataset(test_samples, image_dir, transform=None)
 
@@ -197,7 +208,8 @@ def get_dataloaders(csv_path, image_dir, batch_size=8, seed=42):
     val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=0)
     test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=False, num_workers=0)
 
-    print(f"Holdout Split: Train={len(train_samples)}, Val={len(val_samples)}, Test={len(test_samples)}")
+    print(f"Holdout Split: Train={len(train_samples)}, Val={len(val_samples)}, Test={len(test_samples)} "
+          f"(augmentation={'on' if use_augmentation else 'off'})")
     return train_loader, val_loader, test_loader
 
 
