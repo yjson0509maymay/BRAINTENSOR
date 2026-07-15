@@ -1,21 +1,18 @@
 # ==========================================
-# Brain_Tensor .gitignore
+# BRAINTENSOR .gitignore
 # ==========================================
 
-# 1. 초대용량 데이터 폴더 제외 (16GB+)
-RAW DATA/
-지난파일/
+# 1. 원본 DICOM/메타데이터 제외 (수 GB, README 안내문만 포함)
+00_RawData/303_1713/
 
-# 2. 전처리된 NIfTI MRI 이미지 데이터 폴더 제외 (수 GB)
-# (코드, CSV 매니페스트, 스크립트는 Git에 포함하고 실제 이미지 볼륨 데이터만 제외합니다)
-01_Preprocessing/전처리01_원본변환/
-01_Preprocessing/전처리02_두개골제거/
-01_Preprocessing/전처리03_필드보정/
-01_Preprocessing/전처리04_공간정합/
-01_Preprocessing/전처리05_정규화/
-01_Preprocessing/전처리06_리사이즈_최종/
+# 2. 전처리된 NIfTI MRI 이미지 데이터 폴더 제외 (6.7GB)
+# (코드, CSV 매니페스트, 스크립트, QC 로그는 Git에 포함하고 실제 이미지 볼륨 데이터만 제외합니다)
+01_Preprocessing/전처리_0713/
 
-# 3. 로컬 학습 결과 및 가중치 제외 (향후 대용량 모델 파일 방지)
+# 3. 로컬 정리용 임시 폴더 제외
+삭제/
+
+# 4. 로컬 학습 결과 및 가중치 제외 (향후 대용량 모델 파일 방지)
 03_Model_Training/checkpoints/
 03_Model_Training/training_logs/
 06_Result/
@@ -35,3 +32,9 @@ __pycache__/
 # 6. OS 생성 파일 제외
 .DS_Store
 Thumbs.db
+
+# 7. Claude Code 로컬 세션 설정 제외
+.claude/
+
+# 8. 별도로 관리하는 해커톤 자료 제외 (이 저장소와 무관)
+해커톤/

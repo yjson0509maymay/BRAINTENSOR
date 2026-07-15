@@ -57,7 +57,7 @@ for _rel in ["02_Model_Definition", "03_Model_Training",
         sys.path.insert(0, _p)
 
 from models import CNN3D, ResNet3D
-from dataset import get_holdout_split, get_kfold_splits, PPMIT2Dataset
+from dataset import get_holdout_split, get_kfold_splits, PPMIT2Dataset, augment_volume_3d
 from torch.utils.data import DataLoader
 from cca_feature_fusion import cca_fuse
 from woa_feature_selection import binary_woa_feature_selection
@@ -152,7 +152,8 @@ def run_pipeline(args):
         test_samples = test_samples[:1] if test_samples else test_samples
         print(f"[SMOKE TEST] 샘플 수 축소: train={len(train_samples)}, val={len(val_samples)}, test={len(test_samples)}")
 
-    train_ds = PPMIT2Dataset(train_samples, args.image_dir, transform=None)
+    train_ds = PPMIT2Dataset(train_samples, args.image_dir,
+                              transform=lambda x: augment_volume_3d(x, np.random.default_rng()))
     val_ds = PPMIT2Dataset(val_samples, args.image_dir, transform=None)
     test_ds = PPMIT2Dataset(test_samples, args.image_dir, transform=None)
 

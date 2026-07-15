@@ -1,0 +1,34 @@
+{
+  "cnn_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.414351363976787,
+      "train_acc": 0.6666666666666666,
+      "val_acc": 1.0
+    }
+  ],
+  "resnet_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.44756260912011686,
+      "train_acc": 0.6666666666666666,
+      "val_acc": 1.0
+    }
+  ],
+  "fv3_shape": [
+    8,
+    2000
+  ],
+  "fc4_shape": [
+    8,
+    1000
+  ],
+  "fused_shape": [
+    8,
+    14
+  ],
+  "n_selected_features": 1,
+  "woa_best_fitness": 0.9907142857142857,
+  "kfold_results": {},
+  "elapsed_sec": 5.019368410110474
+}
