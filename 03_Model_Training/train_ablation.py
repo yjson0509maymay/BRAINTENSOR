@@ -192,10 +192,10 @@ def main():
     # [2026-07-20 갱신] 기본값이 존재하지 않는 경로(data_final_303.csv, 전처리06_리사이즈_최종)를
     # 가리키고 있던 걸 발견 - 이번 세션 내내 --csv_path/--image_dir를 매번 직접 지정해서
     # 드러나지 않았음. 여러 전처리 변형(min-max/N4없음, N4있음, z-score)을 비교한 결과
-    # min-max+N4없음(전처리_ref21order)이 가장 우수·안정적이어서 이걸 표준으로 채택
-    # (상세: 01_Preprocessing/전처리_ref21order_상세기록.md, 전처리_ref21order_v1_v2_비교.md).
+    # min-max+N4없음(전처리_ref21order_v1)이 가장 우수·안정적이어서 이걸 표준으로 채택
+    # (상세: 01_Preprocessing/전처리_ref21order_v1_상세기록.md, 전처리_변형_종합비교.md).
     p.add_argument("--csv_path", type=str, default=os.path.join(_ROOT, "01_Preprocessing", "data_0713_wsl_v2.csv"))
-    p.add_argument("--image_dir", type=str, default=os.path.join(_ROOT, "01_Preprocessing", "전처리_ref21order"))
+    p.add_argument("--image_dir", type=str, default=os.path.join(_ROOT, "01_Preprocessing", "전처리_ref21order_v1"))
     p.add_argument("--epochs", type=int, default=30)
     # [2026-07 재수정] Table 3 Study 2 표에서 Base model 열을 직접 확인한 결과 배치=32로
     # 명시되어 있음(Variant3의 배치=64와는 다름). 이전 수정(8->64)은 Variant3 값을 잘못

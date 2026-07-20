@@ -207,7 +207,7 @@ def _has_non_ascii(path):
 
 def _stage_ascii_in(path):
     """ants(ITK)가 비-ASCII(한글 등) 경로에서 'Could not create ImageIO object' 에러로
-    실패하는 것을 확인함(실제 배치 실행 중 발견 - 전처리_ref21order 등 한글 폴더명에서
+    실패하는 것을 확인함(실제 배치 실행 중 발견 - 전처리_ref21order_v1 등 한글 폴더명에서
     전부 실패). 경로에 비-ASCII 문자가 있으면 임시 ASCII 경로로 복사해서 그 경로를 반환.
     공백은 문제 없음(테스트로 확인) - 비-ASCII 문자만 대상."""
     if not _has_non_ascii(os.path.abspath(path)):
@@ -589,7 +589,7 @@ def run_batch(
         writer.writerows(results)
 
     manifest_path = write_run_manifest(output_dir, stamp, {
-        "timestamp": stamp, "script": "preparing_ref21order.py", "input_source": ppmi_root,
+        "timestamp": stamp, "script": "preparing_ref21order_v1.py", "input_source": ppmi_root,
         "output_dir": output_dir, "atlas_path": atlas_path, "normalization": normalization,
         "enable_bias_correction": enable_bias_correction, "target_shape": list(target_shape),
         "bet_frac": bet_frac, "total": total, "success": n_ok, "failed": n_fail, "skipped": n_skip,
@@ -677,7 +677,7 @@ def run_batch_from_nifti(
         writer.writerows(results)
 
     manifest_path = write_run_manifest(output_dir, stamp, {
-        "timestamp": stamp, "script": "preparing_ref21order.py", "input_source": raw_nifti_dir,
+        "timestamp": stamp, "script": "preparing_ref21order_v1.py", "input_source": raw_nifti_dir,
         "output_dir": output_dir, "atlas_path": atlas_path, "normalization": normalization,
         "enable_bias_correction": enable_bias_correction, "target_shape": list(target_shape),
         "bet_frac": bet_frac, "total": total, "success": n_ok, "failed": n_fail, "skipped": n_skip,
@@ -714,7 +714,7 @@ def build_arg_parser():
             "시작. 지정하면 --ppmi-root는 무시됨."
         ),
     )
-    parser.add_argument("--output-dir", default=r"E:\ppmi_dti\preparing\nifti_ref21order")
+    parser.add_argument("--output-dir", default=r"E:\ppmi_dti\preparing\nifti_ref21order_v1")
     parser.add_argument(
         "--atlas-path",
         default=os.environ.get("MNIPD25_ATLAS", ""),

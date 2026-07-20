@@ -9,7 +9,7 @@
 # (코드, CSV 매니페스트, 스크립트, QC 로그는 Git에 포함하고 실제 이미지 볼륨 데이터만 제외합니다)
 01_Preprocessing/전처리_0713/
 01_Preprocessing/전처리_0713_v2/
-01_Preprocessing/전처리_ref21order/
+01_Preprocessing/전처리_ref21order_v1/
 01_Preprocessing/전처리_ref21order_v2/
 01_Preprocessing/전처리_ref21order_zscore/
 

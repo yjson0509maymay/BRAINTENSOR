@@ -5,7 +5,7 @@
 #   ANTs: N4BiasFieldCorrection (CLI)
 #   ANTsPy (antspyx, python package "ants"): registration
 #
-# [2026-07-19 신규 작성] preparing_ref21order.py(v1)의 후속 버전 - N4 위치 재검토
+# [2026-07-19 신규 작성] preparing_ref21order_v1.py의 후속 버전 - N4 위치 재검토
 #
 # v1과의 유일한 차이점: Bias Field Correction(N4) 위치.
 #   - v1: 주논문 Methods(p.4) "brain extraction, registration, normalization and data

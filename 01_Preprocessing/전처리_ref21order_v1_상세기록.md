@@ -1,8 +1,8 @@
-# `전처리_ref21order` 상세 기록 (v1, 최종 채택본)
+# `전처리_ref21order_v1` 상세 기록 (v1, 최종 채택본)
 
 작성일: 2026-07-20
-스크립트: `스크립트/preparing_ref21order.py`
-출력 폴더: `01_Preprocessing/전처리_ref21order/`
+스크립트: `스크립트/preparing_ref21order_v1.py`
+출력 폴더: `01_Preprocessing/전처리_ref21order_v1/`
 관련 문서: [`../03_Model_Training/DEVIATIONS.md`](../03_Model_Training/DEVIATIONS.md),
 [`../PREPROCESSING_DEVIATIONS.md`](../PREPROCESSING_DEVIATIONS.md),
 [`전처리_변형_종합비교.md`](전처리_변형_종합비교.md)(원본·v1·v2·z-score 4종 비교),
@@ -44,7 +44,7 @@
    trilinear, order=1)
      │
      ▼
-[최종 출력: 01_Preprocessing/전처리_ref21order/{sample_id}.nii.gz]
+[최종 출력: 01_Preprocessing/전처리_ref21order_v1/{sample_id}.nii.gz]
 ```
 
 | 함수 | 역할 | 위치 |
@@ -74,7 +74,7 @@
 
 | 변형 | 정규화 | N4 위치 | 평균 Accuracy(2시드) | 평균 F1(2시드) |
 |---|---|---|---|---|
-| **이 폴더 (전처리_ref21order)** | min-max | 없음 | **56.52%** | **52.59%** |
+| **이 폴더 (전처리_ref21order_v1)** | min-max | 없음 | **56.52%** | **52.59%** |
 | 전처리_ref21order_v2 | min-max | BET 직후(항상) | 46.74% | 41.57% |
 | 전처리_ref21order_zscore | z-score | 없음 | 47.27% | 33.73% |
 
@@ -115,7 +115,7 @@ PD만 recall 1.00로 살아남음) / seed43 Acc 48.89%/F1 46.56%(붕괴 없음).
    있어서, 스크립트가 자동으로 `wsl bash -c ...`를 경유하도록 구현(`run_via_wsl_clean_staging`).
 2. **FSL 바이너리가 경로에 공백·한글이 있으면 자체적으로 실패**함(셸 따옴표와 무관 —
    `fslinfo`로 직접 확인). WSL 내부 `/tmp/ppmi_stage_<uuid>`(공백·한글 없는 경로)로
-   파일을 복사해 처리 후 원래 위치로 되돌리는 방식으로 우회. 프로젝트 폴더명(`전처리_ref21order`
+   파일을 복사해 처리 후 원래 위치로 되돌리는 방식으로 우회. 프로젝트 폴더명(`전처리_ref21order_v1`
    등 한글)은 전혀 바꾸지 않음.
 3. **ANTsPy(ITK)도 별도로 비-ASCII(한글) 경로에서 "Could not create ImageIO object"
    에러**로 실패 — 처음엔 몰랐다가 실제 배치에서 전 샘플이 실패하면서 발견함. FSL과
@@ -128,9 +128,9 @@ PD만 recall 1.00로 살아남음) / seed43 Acc 48.89%/F1 46.56%(붕괴 없음).
 ## 7. 사용 방법 (재현 커맨드)
 
 ```bash
-python preparing_ref21order.py \
+python preparing_ref21order_v1.py \
   --from-nifti-dir "01_Preprocessing/전처리_0713/01_raw_nifti" \
-  --output-dir "01_Preprocessing/전처리_ref21order" \
+  --output-dir "01_Preprocessing/전처리_ref21order_v1" \
   --atlas-path "00_RawData/atlas/PD25-T1MPRAGE-template-1mm.nii.gz"
   # --normalization minmax (기본값, 생략 가능)
   # --enable-bias-correction 는 주지 않음(기본 비활성 유지)
