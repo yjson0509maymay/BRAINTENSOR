@@ -60,6 +60,16 @@
 아틀라스보다 PD 특화 아틀라스가 해당 영역 정렬에 유리할 수 있음. 비선형 정합 누락 시 개인별
 형태 변이 보정이 불완전하여 이후 특징 추출 성능에 부정적 영향을 줄 수 있음.
 
+**참고 자료(2026-07-18 추가, 근거 보강용)**: 신경영상 임상연구 표준화 플랫폼
+[Clinica](https://github.com/aramis-lab/clinica)(ARAMIS Lab, Frontiers in Neuroinformatics 2021)의
+대표 딥러닝 전처리 파이프라인 `t1-linear`도 ANTs 기반으로 **affine 정합만 사용하고 nonlinear 정합은
+의도적으로 제외**함(GitHub 저장소 README 기준, 확인일 2026-07-18). 이는 위 "정합 도구/방식" 행의
+affine-only 선택이 본 프로젝트만의 특이한 결정이 아니라 딥러닝 입력 전처리에서 실제로 쓰이는
+방식임을 뒷받침하는 외부 근거로 참고함. 다만 Clinica는 T1-weighted MRI/diffusion MRI/PET 위주
+파이프라인이며 T2/FLAIR 전용 파이프라인은 문서에 명시되어 있지 않고 PPMI(PD) 코호트도 별도
+언급이 없어, 이 참고는 "affine-only 선택 자체의 통상성"에 대한 방증일 뿐 PD/T2 데이터에서의
+직접적 성능 검증은 아님.
+
 ## 5. 정규화 (Intensity Normalization)
 
 | 항목 | 논문 명시 여부 | 채택 값 | 근거/이유 |

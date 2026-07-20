@@ -1,0 +1,2 @@
+﻿sample_id,likely_origin_stage_numeric,01_raw_nifti_nonzero_fraction_z,02_bet_nonzero_fraction_z,03_n4_nonzero_fraction_z,04_mni152_nonzero_fraction_z,05_normalized_nonzero_fraction_z,06_resized_nonzero_fraction_z
+sub-4126_I377754,04_mni152,0.27,-1.58,-1.58,-6.03,-6.03,-6.02

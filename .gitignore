@@ -8,6 +8,18 @@
 # 2. 전처리된 NIfTI MRI 이미지 데이터 폴더 제외 (6.7GB)
 # (코드, CSV 매니페스트, 스크립트, QC 로그는 Git에 포함하고 실제 이미지 볼륨 데이터만 제외합니다)
 01_Preprocessing/전처리_0713/
+01_Preprocessing/전처리_0713_v2/
+01_Preprocessing/전처리_ref21order/
+01_Preprocessing/전처리_ref21order_v2/
+01_Preprocessing/전처리_ref21order_zscore/
+
+# 2-1. MNIPD25 아틀라스(참고문헌21 정합용, 3.9GB) 및 로컬 백업 zip 제외
+00_RawData/atlas/
+01_Preprocessing/*.zip
+
+# 2-2. 논문 PDF에서 pdftotext로 추출한 평문 텍스트 제외(원본 PDF는 07_Document/에 이미 포함됨,
+# 중복이며 저작권상 평문 재배포는 최소화)
+07_Document/*.txt
 
 # 3. 로컬 정리용 임시 폴더 제외
 삭제/
