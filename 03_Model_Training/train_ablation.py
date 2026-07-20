@@ -79,7 +79,7 @@ for _rel in ["02_Model_Definition", "03_Model_Training"]:
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from ablation_models import CNN3D_Base
+from ablation_models import CNN3D_Base, CNN3D_Variant1
 from dataset import get_holdout_split, PPMIT2Dataset
 
 try:
@@ -90,8 +90,8 @@ except ImportError:
 
 
 VARIANT_MODELS = {
-    "base": CNN3D_Base,   # 8-layer, 논문 보고 82.02%
-    # "variant1": ...  # 9-layer, 추후 추가 예정
+    "base": CNN3D_Base,           # 8-layer, 논문 보고 82.02%
+    "variant1": CNN3D_Variant1,   # 9-layer(conv 3개), 논문 보고 85.75%
     # "variant2": ...  # 17-layer, 추후 추가 예정
 }
 
@@ -283,14 +283,27 @@ def main():
     # 논문 Table 3 정보 (Study 1 구조 정보 + Study 2 하이퍼파라미터 + 4개 평가지표)
     # 논문 값과 우리 모델 값을 한 표에서 나란히 비교할 수 있도록 구성
     # ============================================================
+    # [2026-07-20 추가] Variant1(9-layer, conv 3개) 등록. Study1 구조/정확도(85.75%)는
+    # 논문 원문 직접 인용으로 확정("three 3D-conv layers... 9-layer architecture...
+    # achieving a model accuracy of 85.75%", ablation_models.py CNN3D_Variant1 참조).
+    # Study2 accuracy/precision/recall/f1(88.25/89.93/84.28/87.43)은
+    # 07_Document/모델_아키텍처_분석.md Table3 인용부 확인. 다만 batch_size/lr은
+    # Table3 Study2의 표 체크박스가 pdftotext로 깨져서(Base 때처럼 육안 확인 필요)
+    # 아직 미확인 - Base와 동일값(32, 0.01)으로 잠정 가정만 해둠(추후 육안 검증 필요).
     paper_architecture = {
         "base": {"n_conv_layers": 2, "n_pooling_layers": 1, "test_acc": 0.8202, "finding": "Lowest accuracy"},
+        "variant1": {"n_conv_layers": 3, "n_pooling_layers": 1, "test_acc": 0.8575, "finding": "Intermediate"},
     }
     paper_study2 = {
         "base": {
             "pooling": "Max", "activation": "ReLU", "batch_size": 32, "flatten": "Flatten",
             "optimizer": "Adam", "lr": 0.01, "epochs": 30,
             "accuracy": 0.8496, "precision": 0.8734, "recall": 0.8154, "f1": 0.8532,
+        },
+        "variant1": {
+            "pooling": "Max", "activation": "ReLU", "batch_size": 32, "flatten": "Flatten",  # 미확인, Base값 잠정 가정
+            "optimizer": "Adam", "lr": 0.01, "epochs": 30,  # batch_size/lr 미확인, Base값 잠정 가정
+            "accuracy": 0.8825, "precision": 0.8993, "recall": 0.8428, "f1": 0.8743,
         },
     }
     paper_acc_study1 = {k: v["test_acc"] for k, v in paper_architecture.items()}

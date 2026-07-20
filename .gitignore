@@ -17,6 +17,15 @@
 00_RawData/atlas/
 01_Preprocessing/*.zip
 
+# 2-1-1. 위 대용량 폴더/zip들이 01_Preprocessing/past/ 보관 폴더로 옮겨진 경우도 동일하게 제외
+# (경로가 바뀌면 위 규칙과 매칭이 안 돼 수십 GB가 그대로 git add 대상이 되는 문제 방지.
+# past/ 안의 작은 파일들(QC 로그 csv/png, README 등)은 계속 추적 대상 - past/ 전체를 막지 않음)
+01_Preprocessing/past/전처리_0713/
+01_Preprocessing/past/전처리_0713_v2/
+01_Preprocessing/past/전처리_ref21order_v2/
+01_Preprocessing/past/전처리_ref21order_zscore/
+01_Preprocessing/past/*.zip
+
 # 2-2. 논문 PDF에서 pdftotext로 추출한 평문 텍스트 제외(원본 PDF는 07_Document/에 이미 포함됨,
 # 중복이며 저작권상 평문 재배포는 최소화)
 07_Document/*.txt
