@@ -3,8 +3,8 @@
 작성일: 2026-07-19
 관련 문서: [`DEVIATIONS.md`](DEVIATIONS.md), [`클래스_붕괴_분석_및_대응.md`](클래스_붕괴_분석_및_대응.md),
 [`용어설명_시드와_클래스붕괴.md`](용어설명_시드와_클래스붕괴.md), [`../PREPROCESSING_DEVIATIONS.md`](../PREPROCESSING_DEVIATIONS.md),
-[`../01_Preprocessing/전처리_ref21order_v1_v2_비교.md`](../01_Preprocessing/전처리_ref21order_v1_v2_비교.md)
-(N4 bias correction 위치를 바꾼 v2 버전과의 비교 - v1이 더 나음)
+[`../01_Preprocessing/전처리_변형_종합비교.md`](../01_Preprocessing/전처리_변형_종합비교.md)
+(원본·v1·v2·z-score 4종 전처리 변형 종합 비교 - v1이 가장 우수)
 
 ---
 

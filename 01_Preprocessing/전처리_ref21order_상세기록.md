@@ -5,7 +5,7 @@
 출력 폴더: `01_Preprocessing/전처리_ref21order/`
 관련 문서: [`../03_Model_Training/DEVIATIONS.md`](../03_Model_Training/DEVIATIONS.md),
 [`../PREPROCESSING_DEVIATIONS.md`](../PREPROCESSING_DEVIATIONS.md),
-[`전처리_ref21order_v1_v2_비교.md`](전처리_ref21order_v1_v2_비교.md),
+[`전처리_변형_종합비교.md`](전처리_변형_종합비교.md)(원본·v1·v2·z-score 4종 비교),
 [`../03_Model_Training/세션_기록_전처리_재구현_및_CNN_재학습.md`](../03_Model_Training/세션_기록_전처리_재구현_및_CNN_재학습.md),
 [`../03_Model_Training/용어설명_시드와_클래스붕괴.md`](../03_Model_Training/용어설명_시드와_클래스붕괴.md)(시드·붕괴 개념 설명)
 
@@ -64,7 +64,7 @@
 | 뇌추출 도구 | **BET** (FSL, frac=0.5, robust) | 주논문 Results(463~465줄, 각주31=Smith 2002=BET 원 논문) 직접 인용 + 참고문헌22와 일치. 참고문헌21은 ROBEX을 쓰지만 이번 변경 범위 아님(기존 유지) |
 | 정합 도구/아틀라스 | **ANTsPy**(`type_of_transform="SyN"`) + **MNIPD25-T1MPRAGE-1mm**(PD 특화 아틀라스) | 참고문헌21 Table3 Step3 원문: "Use Antspyx to align the image with the atlas" 그대로. 주논문 본문엔 정합 도구/아틀라스명이 전혀 없어 참고문헌21을 근거로 채택 |
 | 정규화 공식 | **Min-max**: `(I-Min)/(Max-Min)`, 뇌 영역 기준 | 참고문헌21 Eq.1-3 그대로. z-score(참고문헌22 방식)도 코드에 구현돼있으나 min-max로 채택(→ 4번 항목) 기본값으로 채택 |
-| Bias correction(N4) | **기본 비활성** | 주논문 Methods(217~218줄) "brain extraction, registration, normalization and data augmentation" 4단계 목록에 bias correction이 없음. N4를 뇌추출 직후 넣어본 버전(v2)이 오히려 성능이 낮고 불안정해서(→ `전처리_ref21order_v1_v2_비교.md`) 이 판단이 실험적으로도 뒷받침됨 |
+| Bias correction(N4) | **기본 비활성** | 주논문 Methods(217~218줄) "brain extraction, registration, normalization and data augmentation" 4단계 목록에 bias correction이 없음. N4를 뇌추출 직후 넣어본 버전(v2)이 오히려 성능이 낮고 불안정해서(→ `전처리_변형_종합비교.md`) 이 판단이 실험적으로도 뒷받침됨 |
 | 리사이즈 크기 | 56×56×56 | 주논문 명시값(변경 없음) |
 
 ## 4. 실험적으로 검증된 것 (다른 버전과 비교)
